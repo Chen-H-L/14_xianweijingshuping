@@ -100,6 +100,7 @@
     const aiInput = document.getElementById('aiInput');
     const sendButton = document.getElementById('sendButton');
     const voiceButton = document.getElementById('voiceButton');
+    const panelItems = document.querySelectorAll('.panel-item');
 
     menuButton.addEventListener('click', () => pageMenu.classList.toggle('open'));
     document.addEventListener('click', (event) => {
@@ -162,6 +163,13 @@
       aiPanel.hidden = true;
     });
 
+    panelItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        aiInput.value = item.textContent.trim();
+        aiInput.focus();
+      });
+    });
+
     voiceButton.addEventListener('click', () => {
       voiceButton.textContent = '录音中...';
       voiceButton.disabled = true;
@@ -191,6 +199,7 @@
         aiInput.disabled = false;
         aiInput.value = '';
         aiResponse.innerHTML = `
+          <img src="ai-science-image.jpg" alt="显微镜科普图" class="ai-response-image">
           <p>这是显微镜下的植物叶片，亮绿色是叶脉 / 细胞结构，呈现出叶片的微观脉络形态。</p>
           <p>亮黄绿色的网络状结构是叶片的叶脉（维管束），负责运输水分、养分并支撑叶片；深绿色区域是叶肉组织，其中密布着含叶绿素的叶绿体，是植物进行光合作用的核心场所。</p>
           <p>左下角的圆形结构大概率是叶片上的气孔保卫细胞，是植物与外界进行气体交换、蒸腾作用的通道。</p>
