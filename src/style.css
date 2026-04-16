@@ -990,21 +990,19 @@ h1 {
 
 .experience-page {
   position: relative;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   min-height: calc(100vh - 4rem);
+  padding: 1rem 0 2rem;
   background: radial-gradient(circle at top, #fff4e0 0%, #ffe2bb 28%, #ffd191 100%);
 }
 
 .experience-viewport {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(1000px, 95vh);
-  height: min(700px, 95vw);
-  transform: translate(-50%, -50%) rotate(0deg);
-  transform-origin: center center;
-  transition: transform 0.9s ease;
-  border-radius: 32px;
+  position: relative;
+  width: min(420px, calc(100vw - 1.5rem));
+  margin: 0 auto;
+  border-radius: 28px;
   background: linear-gradient(180deg, #fffdf5 0%, #ffe8c6 100%);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.14);
   overflow: hidden;
@@ -1013,20 +1011,13 @@ h1 {
 
 .experience-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
 }
 
-body.landscape-mode .experience-viewport {
-  transform: translate(-50%, -50%) rotate(-90deg);
-}
-
 .landscape-hint {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 25;
+  position: static;
+  margin: 0 auto 1rem auto;
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(255, 160, 0, 0.3);
   border-radius: 18px;
@@ -1240,8 +1231,7 @@ body.landscape-mode .experience-viewport {
 
 @media (max-width: 680px) {
   .experience-viewport {
-    width: 92vh;
-    height: 92vw;
+    width: calc(100vw - 1.5rem);
   }
 
   .experience-title {

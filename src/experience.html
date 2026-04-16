@@ -28,31 +28,20 @@
     <a href="achievement.html" class="menu-link">成就页面</a>
   </div>
 
-  <main class="main-content experience-page">
-    <div class="landscape-hint" id="rotateHint">正在切换到横屏体验...</div>
-
-    <div class="experience-viewport" id="experienceViewport">
-      <img src="image.png" alt="当当理显微镜互动体验中心" class="experience-image">
+    <div class="experience-viewport">
+      <img src="新交互图片.png" alt="显微镜互动体验竖版大图" class="experience-image">
     </div>
   </main>
 
   <script>
     const menuButton = document.querySelector('.menu-toggle');
     const pageMenu = document.getElementById('pageMenu');
-    const rotateHint = document.getElementById('rotateHint');
 
     menuButton.addEventListener('click', () => pageMenu.classList.toggle('open'));
     document.addEventListener('click', (event) => {
       if (!pageMenu.contains(event.target) && !menuButton.contains(event.target)) {
         pageMenu.classList.remove('open');
       }
-    });
-
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        document.body.classList.add('landscape-mode');
-        rotateHint.textContent = '横屏体验已就绪，开始探索吧！';
-      }, 450);
     });
   </script>
 </body>
