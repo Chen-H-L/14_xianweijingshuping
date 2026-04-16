@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>成就页面</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-wrap">
+      <img src="logo-icon.png" alt="Beaverlab" class="logo">
+      <div class="logo-text">
+        <div class="brand">Beaverlab</div>
+        <div class="subtitle">显微镜资源中心</div>
+      </div>
+    </div>
+    <button class="menu-toggle" type="button" aria-label="打开栏目">☰</button>
+  </header>
+
+  <div class="page-menu" id="pageMenu">
+    <a href="index.html" class="menu-link">连接显微镜</a>
+    <a href="video.html" class="menu-link">配套视频</a>
+    <a href="book.html" class="menu-link">配套书籍</a>
+    <a href="game.html" class="menu-link">配套游戏</a>
+    <a href="social.html" class="menu-link">交友社交</a>
+    <a href="experience.html" class="menu-link">互动体验</a>
+    <a href="achievement.html" class="menu-link active">成就页面</a>
+  </div>
+
+  <main class="main-content">
+    <h1>成就页面</h1>
+    <p>你当前已获得以下成就。继续探索显微镜世界还能解锁更多勋章。</p>
+    <div class="achievement-grid">
+      <div class="achievement-card">昆虫勋章</div>
+      <div class="achievement-card">植物勋章</div>
+      <div class="achievement-card">蜜蜂勋章</div>
+      <div class="achievement-card">小小科学家</div>
+      <div class="achievement-card">细菌大王</div>
+      <div class="achievement-card">分享大王</div>
+      <div class="achievement-card">分类小能手</div>
+      <div class="achievement-card">知识大王</div>
+      <div class="achievement-card">蜜蜂专家</div>
+      <div class="achievement-card">矿石大王</div>
+      <div class="achievement-card">熊猫先生</div>
+    </div>
+  </main>
+
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const pageMenu = document.getElementById('pageMenu');
+    menuButton.addEventListener('click', () => pageMenu.classList.toggle('open'));
+    document.addEventListener('click', (event) => {
+      if (!pageMenu.contains(event.target) && !menuButton.contains(event.target)) {
+        pageMenu.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>

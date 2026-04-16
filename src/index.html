@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>显微镜配套资源</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-wrap">
+      <img src="logo-icon.png" alt="Beaverlab" class="logo">
+      <div class="logo-text">
+        <div class="brand">Beaverlab</div>
+        <div class="subtitle">显微镜资源中心</div>
+      </div>
+    </div>
+    <button class="menu-toggle" type="button" aria-label="打开栏目">☰</button>
+  </header>
+
+  <div class="page-menu" id="pageMenu">
+    <a href="index.html" class="menu-link active">连接显微镜</a>
+    <a href="video.html" class="menu-link">配套视频</a>
+    <a href="book.html" class="menu-link">配套书籍</a>
+    <a href="game.html" class="menu-link">配套游戏</a>
+    <a href="social.html" class="menu-link">交友社交</a>
+    <a href="experience.html" class="menu-link">互动体验</a>
+    <a href="achievement.html" class="menu-link">成就页面</a>
+  </div>
+
+  <main class="main-content">
+    <h1>连接显微镜</h1>
+    <p>请将待连接设备和显微镜置于同一 Wi-Fi 下。</p>
+    <div class="microscope-placeholder" id="microscopeStatus">
+      <div class="placeholder-text">搜索到的设备名会显示在这里</div>
+    </div>
+    <button class="primary-button" type="button" id="searchButton">点击开始搜索显微镜</button>
+    <div class="history-title">历史连接设备</div>
+    <div class="history-card">
+      <div class="history-device history-device-long">
+        <span class="device-name">DDL-M2C</span>
+      </div>
+    </div>
+  </main>
+
+  <div class="ai-assistant" id="aiAssistant" hidden>
+    <div class="assistant-badge">AI</div>
+    <div class="assistant-content">
+      <div class="assistant-title">AI 助教</div>
+      <div class="assistant-message">显微镜画面讲解助手</div>
+    </div>
+  </div>
+
+  <div class="ai-panel" id="aiPanel" hidden>
+    <div class="ai-panel-header">
+      <div>
+        <div class="assistant-title-large">显微镜资源讲解助手</div>
+        <div class="assistant-desc">我可以介绍显微镜画面中显示的细胞、结构与观察要点。</div>
+      </div>
+      <button class="panel-close" id="panelClose" aria-label="关闭">×</button>
+    </div>
+    <div class="ai-panel-list">
+      <button class="panel-item">画面中细胞结构是什么样子</button>
+    </div>
+    <div class="ai-panel-input">
+      <input type="text" id="aiInput" placeholder="例如：这是什么细胞？">
+      <button class="voice-button" id="voiceButton" aria-label="语音输入">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+          <path d="M12 14a3.99 3.99 0 0 0 4-4V6a4 4 0 0 0-8 0v4a4 4 0 0 0 4 4zm5-4a5 5 0 0 1-10 0H5a7 7 0 0 0 14 0h-2zm-5 7c-2.76 0-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V22h2v-2.08c3.39-.49 6-3.39 6-6.92h-2c0 2.76-2.24 5-5 5z"/>
+        </svg>
+      </button>
+      <button class="send-button" id="sendButton">发送</button>
+    </div>
+  </div>
+
+  <!-- 好友分享弹窗 -->
+  <div class="share-modal" id="shareModal" hidden>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>选择好友</h3>
+        <button class="modal-close" id="modalClose" aria-label="关闭">×</button>
+      </div>
+      <div class="friend-list">
+        <div class="friend-item">
+          <span class="friend-name">小当</span>
+          <button class="share-to-friend-button">分享</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const pageMenu = document.getElementById('pageMenu');
+    const searchButton = document.getElementById('searchButton');
+    const microscopeStatus = document.getElementById('microscopeStatus');
+    const aiAssistant = document.getElementById('aiAssistant');
+    const aiPanel = document.getElementById('aiPanel');
+    const panelClose = document.getElementById('panelClose');
+    const aiInput = document.getElementById('aiInput');
+    const sendButton = document.getElementById('sendButton');
+    const voiceButton = document.getElementById('voiceButton');
+
+    menuButton.addEventListener('click', () => pageMenu.classList.toggle('open'));
+    document.addEventListener('click', (event) => {
+      if (!pageMenu.contains(event.target) && !menuButton.contains(event.target)) {
+        pageMenu.classList.remove('open');
+      }
+    });
+
+    searchButton.addEventListener('click', () => {
+      microscopeStatus.innerHTML = '<div class="device-card loading"><span class="loader"></span><span class="device-name">搜索中...</span></div>';
+      searchButton.disabled = true;
+      searchButton.textContent = '正在搜索...';
+
+      setTimeout(() => {
+        microscopeStatus.innerHTML = '<div class=\"device-card\"><span class=\"device-name\">DDL-M2C</span><button class=\"connect-button\" id=\"connectButton\">点击连接</button></div>';
+        searchButton.disabled = false;
+        searchButton.textContent = '点击开始搜索显微镜';
+      }, 2000);
+    });
+    // 连接按钮事件
+    document.addEventListener('click', (event) => {
+      if (event.target.id === 'connectButton') {
+        const deviceCard = event.target.closest('.device-card');
+        deviceCard.innerHTML = '<span class=\"loader\"></span><span class=\"device-name\">连接中...</span>';
+        event.target.disabled = true;
+
+        setTimeout(() => {
+          // 连接成功，改变布局
+          document.querySelector('.main-content').innerHTML = `
+            <h1>显微镜连接成功</h1>
+            <div class=\"microscope-view\">
+              <div class=\"microscope-screen\">\n                <img src=\"叶子放大.png\" alt=\"显微镜观察叶子\" class=\"microscope-screen-image\">\n              </div>\n              <button class=\"share-image-button\">分享图片给好友</button>
+              <div class=\"controls\">
+                <button class=\"control-button\">放大</button>
+                <button class=\"control-button\">缩小</button>
+                <button class=\"control-button\">拍照</button>
+              </div>
+              <div class="ai-response" id="aiResponse" hidden></div>
+            </div>
+          `;          const aiAssistant = document.getElementById('aiAssistant');
+          aiAssistant.hidden = false;
+          aiPanel.hidden = true;
+        }, 2000);
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (event.target.classList.contains('share-image-button')) {
+        document.getElementById('shareModal').hidden = false;
+      }
+    });
+
+    aiAssistant.addEventListener('click', () => {
+      if (!aiAssistant.hidden) {
+        aiPanel.hidden = !aiPanel.hidden;
+      }
+    });
+
+    panelClose.addEventListener('click', () => {
+      aiPanel.hidden = true;
+    });
+
+    voiceButton.addEventListener('click', () => {
+      voiceButton.textContent = '录音中...';
+      voiceButton.disabled = true;
+      setTimeout(() => {
+        voiceButton.textContent = '🎙';
+        voiceButton.disabled = false;
+        aiInput.placeholder = '请讲出你的显微镜问题';
+      }, 1200);
+    });
+
+    sendButton.addEventListener('click', () => {
+      const text = aiInput.value.trim();
+      if (!text) return;
+
+      const aiResponse = document.getElementById('aiResponse');
+      if (!aiResponse) return;
+
+      sendButton.disabled = true;
+      sendButton.textContent = 'AI 助教思考中...';
+      aiInput.disabled = true;
+      aiResponse.hidden = false;
+      aiResponse.innerHTML = '<div class="ai-response-loading"><span></span><span></span><span></span></div> AI 助教正在分析显微镜画面...';
+
+      setTimeout(() => {
+        sendButton.textContent = '发送';
+        sendButton.disabled = false;
+        aiInput.disabled = false;
+        aiInput.value = '';
+        aiResponse.innerHTML = `
+          <p>这是显微镜下的植物叶片，亮绿色是叶脉 / 细胞结构，呈现出叶片的微观脉络形态。</p>
+          <p>亮黄绿色的网络状结构是叶片的叶脉（维管束），负责运输水分、养分并支撑叶片；深绿色区域是叶肉组织，其中密布着含叶绿素的叶绿体，是植物进行光合作用的核心场所。</p>
+          <p>左下角的圆形结构大概率是叶片上的气孔保卫细胞，是植物与外界进行气体交换、蒸腾作用的通道。</p>
+          <button class="share-knowledge-button">分享知识给好友</button>
+        `;
+        // 添加分享知识按钮事件
+        const shareKnowledgeButton = aiResponse.querySelector('.share-knowledge-button');
+        if (shareKnowledgeButton) {
+          shareKnowledgeButton.addEventListener('click', () => {
+            document.getElementById('shareModal').hidden = false;
+          });
+        }
+      }, 5000);
+    });
+
+    // 弹窗关闭事件
+    document.getElementById('modalClose').addEventListener('click', () => {
+      document.getElementById('shareModal').hidden = true;
+    });
+
+    document.addEventListener('click', (event) => {
+      if (event.target.classList.contains('share-to-friend-button')) {
+        document.getElementById('shareModal').hidden = true;
+      }
+    });
+
+    // 点击弹窗背景关闭
+    document.getElementById('shareModal').addEventListener('click', (event) => {
+      if (event.target.id === 'shareModal') {
+        document.getElementById('shareModal').hidden = true;
+      }
+    });
+  </script>
+</body>
+</html>

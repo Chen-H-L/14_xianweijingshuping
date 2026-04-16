@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>交友社交</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-wrap">
+      <img src="logo-icon.png" alt="Beaverlab" class="logo">
+      <div class="logo-text">
+        <div class="brand">Beaverlab</div>
+        <div class="subtitle">显微镜资源中心</div>
+      </div>
+    </div>
+    <button class="menu-toggle" type="button" aria-label="打开栏目">☰</button>
+  </header>
+
+  <div class="page-menu" id="pageMenu">
+    <a href="index.html" class="menu-link">连接显微镜</a>
+    <a href="video.html" class="menu-link">配套视频</a>
+    <a href="book.html" class="menu-link">配套书籍</a>
+    <a href="game.html" class="menu-link">配套游戏</a>
+    <a href="social.html" class="menu-link active">交友社交</a>
+    <a href="experience.html" class="menu-link">互动体验</a>
+    <a href="achievement.html" class="menu-link">成就页面</a>
+  </div>
+
+  <main class="main-content">
+    <h1>交友社交</h1>
+    <p>这里可以与其他显微镜爱好者互动交流。</p>
+    <div class="friend-card">
+      <button class="friend-toggle" id="friendToggle">好友列表</button>
+      <div class="friend-list" id="friendList" hidden>
+        <div class="friend-item" data-name="小当">
+          <span class="friend-name">小当</span>
+          <button class="record-button">分享记录</button>
+        </div>
+      </div>
+      <div class="friend-detail" id="friendDetail">点击好友即可查看好友信息。</div>
+    </div>
+  </main>
+
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const pageMenu = document.getElementById('pageMenu');
+    const friendToggle = document.getElementById('friendToggle');
+    const friendList = document.getElementById('friendList');
+    const friendDetail = document.getElementById('friendDetail');
+    const defaultFriendDetailText = '点击好友即可查看好友信息。';
+    let currentFriend = null;
+
+    menuButton.addEventListener('click', () => pageMenu.classList.toggle('open'));
+    document.addEventListener('click', (event) => {
+      if (!pageMenu.contains(event.target) && !menuButton.contains(event.target)) {
+        pageMenu.classList.remove('open');
+      }
+    });
+
+    friendToggle.addEventListener('click', () => {
+      const isHidden = friendList.hasAttribute('hidden');
+      if (isHidden) {
+        friendList.removeAttribute('hidden');
+        friendToggle.textContent = '隐藏好友列表';
+      } else {
+        friendList.setAttribute('hidden', '');
+        friendToggle.textContent = '好友列表';
+      }
+    });
+
+    friendList.addEventListener('click', (event) => {
+      const item = event.target.closest('.friend-item');
+      if (!item) return;
+      const name = item.getAttribute('data-name') || '小当';
+      const isRecordButton = event.target.closest('.record-button');
+      if (isRecordButton) {
+        currentFriend = name;
+        friendDetail.innerHTML = `
+          <div class="chat-header">
+            <div class="friend-detail-title">${name} 的聊天记录</div>
+            <button class="chat-back" id="chatBack">返回</button>
+          </div>
+          <div class="chat-messages">
+            <div class="chat-message user">
+              <div class="chat-avatar">我</div>
+              <div class="chat-content">
+                <img src="叶子放大.png" alt="叶子放大" class="chat-image">
+              </div>
+            </div>
+            <div class="chat-message user">
+              <div class="chat-avatar">我</div>
+              <div class="chat-content">
+                <p>这是显微镜下的植物叶片，亮绿色是叶脉 / 细胞结构，呈现出叶片的微观脉络形态。</p>
+                <p>亮黄绿色的网络状结构是叶片的叶脉（维管束），负责运输水分、养分并支撑叶片；深绿色区域是叶肉组织，其中密布着含叶绿素的叶绿体，是植物进行光合作用的核心场所。</p>
+                <p>左下角的圆形结构大概率是叶片上的气孔保卫细胞，是植物与外界进行气体交换、蒸腾作用的通道。</p>
+              </div>
+            </div>
+            <div class="chat-message friend">
+              <div class="chat-avatar">小当</div>
+              <div class="chat-content">
+                <p>哇，这张叶片图好清晰，我也想试试用显微镜观察这样的细胞结构！</p>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-area">
+            <input type="text" placeholder="输入消息..." disabled>
+            <button disabled>发送</button>
+          </div>
+        `;
+        return;
+      }
+      if (currentFriend === name) {
+        currentFriend = null;
+        friendDetail.textContent = defaultFriendDetailText;
+        return;
+      }
+      currentFriend = name;
+      friendDetail.innerHTML = `
+        <div class="friend-detail-title">好友：${name}</div>
+        <div class="friend-detail-text">这是你的好友 ${name}，她正在使用显微镜学习与分享。查看她的成就，或发送资源包帮助她更快完成实验。</div>
+        <div class="friend-stats">
+          <div class="stat-item">
+            <div class="stat-label">已解锁成就</div>
+            <div class="stat-value">8</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">资源包</div>
+            <div class="stat-value">5</div>
+          </div>
+        </div>
+        <div class="friend-achievements">
+          <span class="achievement-tag">显微镜达人</span>
+          <span class="achievement-tag">实验记录王</span>
+          <span class="achievement-tag">图像处理高手</span>
+          <span class="achievement-tag">知识分享者</span>
+        </div>
+        <button class="share-button" id="shareResource">分享资源包</button>
+      `;
+    });
+
+    document.addEventListener('click', (event) => {
+      if (event.target.id === 'shareResource') {
+        event.target.textContent = '已发送资源包';
+        event.target.disabled = true;
+        event.target.classList.add('shared');
+      }
+      if (event.target.id === 'chatBack') {
+        currentFriend = null;
+        friendDetail.textContent = defaultFriendDetailText;
+      }
+    });
+  </script>
+</body>
+</html>

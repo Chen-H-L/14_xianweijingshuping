@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>配套游戏</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-wrap">
+      <img src="logo-icon.png" alt="Beaverlab" class="logo">
+      <div class="logo-text">
+        <div class="brand">Beaverlab</div>
+        <div class="subtitle">显微镜资源中心</div>
+      </div>
+    </div>
+    <button class="menu-toggle" type="button" aria-label="打开栏目">☰</button>
+  </header>
+
+  <div class="page-menu" id="pageMenu">
+    <a href="index.html" class="menu-link">连接显微镜</a>
+    <a href="video.html" class="menu-link">配套视频</a>
+    <a href="book.html" class="menu-link">配套书籍</a>
+    <a href="game.html" class="menu-link active">配套游戏</a>
+    <a href="social.html" class="menu-link">交友社交</a>
+    <a href="experience.html" class="menu-link">互动体验</a>
+    <a href="achievement.html" class="menu-link">成就页面</a>
+  </div>
+
+  <main class="main-content">
+    <h1>配套游戏</h1>
+    <p>这里展示与显微镜相关的趣味游戏。</p>
+    <div class="game-placeholder">[游戏内容占位]</div>
+  </main>
+
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const pageMenu = document.getElementById('pageMenu');
+    menuButton.addEventListener('click', () => pageMenu.classList.toggle('open'));
+    document.addEventListener('click', (event) => {
+      if (!pageMenu.contains(event.target) && !menuButton.contains(event.target)) {
+        pageMenu.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>

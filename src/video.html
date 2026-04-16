@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>配套视频</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo-wrap">
+      <img src="logo-icon.png" alt="Beaverlab" class="logo">
+      <div class="logo-text">
+        <div class="brand">Beaverlab</div>
+        <div class="subtitle">显微镜资源中心</div>
+      </div>
+    </div>
+    <button class="menu-toggle" type="button" aria-label="打开栏目">☰</button>
+  </header>
+
+  <div class="page-menu" id="pageMenu">
+    <a href="index.html" class="menu-link">连接显微镜</a>
+    <a href="video.html" class="menu-link active">配套视频</a>
+    <a href="book.html" class="menu-link">配套书籍</a>
+    <a href="game.html" class="menu-link">配套游戏</a>
+    <a href="social.html" class="menu-link">交友社交</a>
+    <a href="experience.html" class="menu-link">互动体验</a>
+    <a href="achievement.html" class="menu-link">成就页面</a>
+  </div>
+
+  <main class="main-content">
+    <h1>配套视频</h1>
+    <p>这里展示与显微镜相关的教学和演示视频，帮助你掌握显微镜使用和样本观察全流程。</p>
+
+    <div class="video-grid">
+      <article class="video-card">
+        <div class="video-cover-wrap">
+          <img src="video-cover-1.jpg" alt="显微镜使用教程" class="video-cover">
+          <div class="duration-badge">6:08</div>
+        </div>
+        <div class="video-card-body">
+          <h2 class="video-title">显微镜使用教程</h2>
+          <p class="video-description">从开机、调焦到样本放置，完整演示显微镜的基础使用流程。</p>
+          <div class="video-card-tags">
+            <span class="video-tag">基础教学</span>
+            <span class="video-tag">操作入门</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="video-card">
+        <div class="video-cover-wrap">
+          <img src="video-cover-2.png" alt="显微镜观察蚂蚁标本实录" class="video-cover">
+          <div class="duration-badge">5:46</div>
+        </div>
+        <div class="video-card-body">
+          <h2 class="video-title">显微镜观察蚂蚁标本实录</h2>
+          <p class="video-description">通过真实蚂蚁标本观察画面，展示显微镜下的细节变化与调节过程。</p>
+          <div class="video-card-tags">
+            <span class="video-tag">标本观察</span>
+            <span class="video-tag">实录演示</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="video-card">
+        <div class="video-cover-wrap">
+          <img src="video-cover-3.png" alt="显微镜观察细胞样本流程" class="video-cover">
+          <div class="duration-badge">6:21</div>
+        </div>
+        <div class="video-card-body">
+          <h2 class="video-title">显微镜观察细胞样本流程</h2>
+          <p class="video-description">结合细胞样本成像画面，演示观察步骤与异常显示效果。</p>
+          <div class="video-card-tags">
+            <span class="video-tag">细胞样本</span>
+            <span class="video-tag">观察流程</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="video-card">
+        <div class="video-cover-wrap">
+          <img src="video-cover-4.png" alt="显微镜户外探索使用" class="video-cover">
+          <div class="duration-badge">8:03</div>
+        </div>
+        <div class="video-card-body">
+          <h2 class="video-title">显微镜户外探索使用</h2>
+          <p class="video-description">展示显微镜在户外环境中的便携探索玩法，适合自然观察与采样体验。</p>
+          <div class="video-card-tags">
+            <span class="video-tag">户外探索</span>
+            <span class="video-tag">便携观察</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="video-card">
+        <div class="video-cover-wrap">
+          <img src="video-cover-5.png" alt="配套书籍以及载玻片的使用" class="video-cover">
+          <div class="duration-badge">7:48</div>
+        </div>
+        <div class="video-card-body">
+          <h2 class="video-title">配套书籍以及载玻片的使用</h2>
+          <p class="video-description">结合配套书籍与载玻片盒，介绍观察材料与延伸阅读资源的搭配使用方式。</p>
+          <div class="video-card-tags">
+            <span class="video-tag">书籍配套</span>
+            <span class="video-tag">载玻片使用</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="video-card">
+        <div class="video-cover-wrap">
+          <img src="video-cover-6.png" alt="自制载玻片并观察教程" class="video-cover">
+          <div class="duration-badge">8:16</div>
+        </div>
+        <div class="video-card-body">
+          <h2 class="video-title">自制载玻片并观察教程</h2>
+          <p class="video-description">从样本放置到自制载玻片，演示完整观察步骤与屏幕成像过程。</p>
+          <div class="video-card-tags">
+            <span class="video-tag">自制载玻片</span>
+            <span class="video-tag">观察教程</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <script>
+    const menuButton = document.querySelector('.menu-toggle');
+    const pageMenu = document.getElementById('pageMenu');
+    menuButton.addEventListener('click', () => pageMenu.classList.toggle('open'));
+    document.addEventListener('click', (event) => {
+      if (!pageMenu.contains(event.target) && !menuButton.contains(event.target)) {
+        pageMenu.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>
