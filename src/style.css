@@ -1,8 +1,11 @@
 body {
   margin: 0;
   padding: 0;
+  min-height: 100vh;
   font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
-  background: #fff8f0;
+  background:
+    radial-gradient(circle at top left, #fffef7 0%, #fff6e7 32%, rgba(255, 255, 255, 0) 33%),
+    linear-gradient(145deg, #fff8f0 0%, #fff1dc 100%);
   color: #333;
 }
 
@@ -293,9 +296,12 @@ h1 {
   cursor: not-allowed;
   box-shadow: none;
 }
+
+.book-feature-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: fit-content;
   background: rgba(255, 152, 0, 0.15);
   color: #b55f00;
   border-radius: 999px;
@@ -919,6 +925,13 @@ h1 {
 .microscope-view {
   margin-top: 2rem;
   text-align: center;
+}
+
+.microscope-actions {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .microscope-screen {
@@ -1681,5 +1694,407 @@ h1 {
   .control-button {
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  body {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    grid-template-areas:
+      "header header"
+      "nav main";
+    gap: 24px 28px;
+    align-items: start;
+    padding: 28px clamp(20px, 2vw, 40px) 36px;
+  }
+
+  .topbar {
+    grid-area: header;
+    padding: 1.1rem 1.35rem;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 183, 92, 0.3);
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 24px 50px rgba(208, 125, 18, 0.12);
+    backdrop-filter: blur(18px);
+  }
+
+  .logo-wrap {
+    gap: 1rem;
+  }
+
+  .logo {
+    width: 72px;
+    height: 72px;
+    padding: 0.35rem;
+    background: rgba(255, 246, 234, 0.9);
+    box-shadow: inset 0 0 0 1px rgba(255, 175, 72, 0.18);
+  }
+
+  .brand {
+    font-size: 1.3rem;
+  }
+
+  .subtitle {
+    font-size: 0.92rem;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .page-menu {
+    grid-area: nav;
+    display: flex;
+    position: sticky;
+    top: 132px;
+    right: auto;
+    width: auto;
+    max-width: none;
+    padding: 1.25rem;
+    border-radius: 28px;
+    gap: 0.7rem;
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: 0 24px 48px rgba(199, 119, 16, 0.12);
+    border: 1px solid rgba(255, 183, 92, 0.24);
+    backdrop-filter: blur(16px);
+  }
+
+  .page-menu::before {
+    content: '功能导航';
+    display: block;
+    padding: 0 0.2rem 0.25rem;
+    color: #b26c0f;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+  .menu-link {
+    justify-content: flex-start;
+    padding: 1rem 1.05rem;
+    border-radius: 18px;
+    font-size: 0.98rem;
+  }
+
+  .menu-link.active {
+    box-shadow: 0 16px 30px rgba(255, 152, 0, 0.22);
+  }
+
+  .main-content {
+    grid-area: main;
+    max-width: min(1320px, 100%);
+    width: 100%;
+    margin: 0;
+    padding: 0 0 4rem;
+  }
+
+  .main-content > h1 {
+    margin: 0 0 0.75rem 0;
+    font-size: clamp(2.6rem, 4vw, 3.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+  }
+
+  .main-content > p:first-of-type {
+    margin: 0 0 2rem 0;
+    max-width: 840px;
+    color: #6a430f;
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .page-home:not(.connected-state) {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.74fr);
+    grid-template-areas:
+      "title title"
+      "intro intro"
+      "device history"
+      "button history";
+    gap: 1.2rem 1.5rem;
+    align-items: start;
+  }
+
+  .page-home:not(.connected-state) > h1 {
+    grid-area: title;
+  }
+
+  .page-home:not(.connected-state) > p {
+    grid-area: intro;
+  }
+
+  .page-home:not(.connected-state) #microscopeStatus {
+    grid-area: device;
+    margin-top: 0;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.4rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 243, 226, 0.98));
+    border: 1px solid rgba(255, 179, 71, 0.22);
+    box-shadow: 0 22px 40px rgba(255, 149, 0, 0.12);
+  }
+
+  .page-home:not(.connected-state) .placeholder-text {
+    max-width: 26rem;
+    font-size: 1.12rem;
+    line-height: 1.8;
+  }
+
+  .page-home:not(.connected-state) #searchButton {
+    grid-area: button;
+    width: fit-content;
+    min-width: 260px;
+    max-width: none;
+    justify-self: center;
+    margin: 0;
+    padding-inline: 2rem;
+  }
+
+  .page-home:not(.connected-state) .history-title {
+    grid-area: history;
+    align-self: start;
+    margin: 0;
+    font-size: 1.3rem;
+  }
+
+  .page-home:not(.connected-state) .history-card {
+    grid-area: history;
+    align-self: start;
+    width: 100%;
+    margin-top: 3.85rem;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 22px 40px rgba(255, 149, 0, 0.1);
+  }
+
+  .page-home:not(.connected-state) .history-device {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    margin: 0;
+    padding: 1rem 1.25rem;
+  }
+
+  .page-home.connected-state .microscope-view {
+    display: grid;
+    grid-template-columns: minmax(0, 1.42fr) 390px;
+    grid-template-areas:
+      "screen response"
+      "actions response";
+    gap: 1.25rem 1.5rem;
+    align-items: start;
+    margin-top: 1.5rem;
+  }
+
+  .page-home.connected-state .microscope-screen {
+    grid-area: screen;
+    max-width: none;
+    height: min(620px, 60vh);
+    margin: 0;
+    border-radius: 28px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+  }
+
+  .page-home.connected-state .microscope-actions {
+    grid-area: actions;
+    margin-top: 0;
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .page-home.connected-state .share-image-button {
+    width: 100%;
+    margin: 0;
+  }
+
+  .page-home.connected-state .controls {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .page-home.connected-state .control-button {
+    width: 100%;
+    border-radius: 16px;
+    padding: 1rem 1.2rem;
+  }
+
+  .page-home.connected-state .ai-response {
+    grid-area: response;
+    align-self: stretch;
+    margin: 0;
+    height: min(620px, 60vh);
+    padding: 1.2rem;
+    overflow: auto;
+  }
+
+  .page-home.connected-state .ai-response-image {
+    max-height: 220px;
+    object-fit: cover;
+  }
+
+  .page-video .video-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.35rem;
+  }
+
+  .page-video .video-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .page-video .video-cover {
+    height: 240px;
+  }
+
+  .page-video .video-card-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 220px;
+  }
+
+  .page-video .video-card-tags {
+    margin-top: auto;
+  }
+
+  .page-book .book-feature {
+    grid-template-columns: minmax(250px, 320px) minmax(0, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .page-book .book-feature-cover {
+    height: 100%;
+    min-height: 380px;
+  }
+
+  .page-book .book-detail-panel {
+    grid-template-columns: minmax(0, 1.7fr) minmax(260px, 0.8fr);
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  .page-book .book-detail-actions {
+    position: sticky;
+    top: 0;
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
+
+  .page-book .book-detail-actions button {
+    min-width: 0;
+  }
+
+  .page-game .game-placeholder {
+    min-height: 430px;
+    display: grid;
+    place-items: center;
+    margin-top: 2rem;
+    border-style: solid;
+    border-width: 1px;
+    background:
+      radial-gradient(circle at top right, rgba(255, 223, 170, 0.55), transparent 26%),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(255, 239, 211, 0.96));
+    box-shadow: 0 28px 60px rgba(255, 151, 0, 0.12);
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+
+  .page-social .friend-card {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 1.4rem;
+    align-items: start;
+    padding: 1.4rem;
+    box-shadow: 0 24px 48px rgba(255, 147, 0, 0.12);
+  }
+
+  .page-social .friend-toggle {
+    grid-column: 1;
+  }
+
+  .page-social #friendList {
+    grid-column: 1;
+    margin-top: 0;
+  }
+
+  .page-social #friendDetail {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin-top: 0;
+    min-height: 420px;
+    padding: 1.25rem;
+  }
+
+  .page-social .chat-content {
+    max-width: min(720px, 100%);
+  }
+
+  .page-social .chat-image {
+    width: min(460px, 100%);
+  }
+
+  .page-social .share-button {
+    max-width: 360px;
+  }
+
+  .page-experience {
+    min-height: auto;
+    padding: 0 0 3rem;
+  }
+
+  .page-experience .landscape-hint {
+    margin: 0 0 1.25rem 0;
+    align-self: flex-start;
+  }
+
+  .page-experience .experience-viewport {
+    width: min(1100px, 100%);
+    border-radius: 32px;
+  }
+
+  .page-experience .experience-image {
+    max-height: calc(100vh - 220px);
+    object-fit: contain;
+    background: #fffaf1;
+  }
+
+  .page-achievement .achievement-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .page-achievement .achievement-card {
+    min-height: 110px;
+    padding: 1.3rem 1.2rem;
+    display: flex;
+    align-items: flex-end;
+    font-size: 1.04rem;
+  }
+
+  .modal-content {
+    max-width: 520px;
+  }
+
+  .ai-assistant {
+    right: 2rem;
+    bottom: 2rem;
+    min-width: 220px;
+  }
+
+  .ai-panel {
+    right: 2rem;
+    bottom: 9.5rem;
+    width: 360px;
   }
 }

@@ -28,7 +28,7 @@
     <a href="achievement.html" class="menu-link">成就页面</a>
   </div>
 
-  <main class="main-content">
+  <main class="main-content page-home">
     <h1>连接显微镜</h1>
     <p>请将待连接设备和显微镜置于同一 Wi-Fi 下。</p>
     <div class="microscope-placeholder" id="microscopeStatus">
@@ -46,7 +46,7 @@
   <div class="ai-assistant" id="aiAssistant" hidden>
     <div class="assistant-badge">AI</div>
     <div class="assistant-content">
-      <div class="assistant-title">当当狸智能ai</div>
+      <div class="assistant-title">小狸</div>
       <div class="assistant-message">显微镜画面讲解助手</div>
     </div>
   </div>
@@ -54,7 +54,7 @@
   <div class="ai-panel" id="aiPanel" hidden>
     <div class="ai-panel-header">
       <div>
-        <div class="assistant-title-large">显微镜资源讲解助手</div>
+        <div class="assistant-title-large">小狸</div>
         <div class="assistant-desc">我可以介绍显微镜画面中显示的细胞、结构与观察要点。</div>
       </div>
       <button class="panel-close" id="panelClose" aria-label="关闭">×</button>
@@ -129,18 +129,24 @@
 
         setTimeout(() => {
           // 连接成功，改变布局
-          document.querySelector('.main-content').innerHTML = `
+          const mainContent = document.querySelector('.main-content');
+          mainContent.classList.add('connected-state');
+          mainContent.innerHTML = `
             <h1>显微镜连接成功</h1>
             <div class=\"microscope-view\">
-              <div class=\"microscope-screen\">\n                <img src=\"叶子放大.png\" alt=\"显微镜观察叶子\" class=\"microscope-screen-image\">\n              </div>\n              <button class=\"share-image-button\">分享图片给好友</button>
-              <div class=\"controls\">
-                <button class=\"control-button\">放大</button>
-                <button class=\"control-button\">缩小</button>
-                <button class=\"control-button\">拍照</button>
+              <div class=\"microscope-screen\">\n                <img src=\"叶子放大.png\" alt=\"显微镜观察叶子\" class=\"microscope-screen-image\">\n              </div>
+              <div class=\"microscope-actions\">
+                <button class=\"share-image-button\">分享图片给好友</button>
+                <div class=\"controls\">
+                  <button class=\"control-button\">放大</button>
+                  <button class=\"control-button\">缩小</button>
+                  <button class=\"control-button\">拍照</button>
+                </div>
               </div>
               <div class="ai-response" id="aiResponse" hidden></div>
             </div>
-          `;          const aiAssistant = document.getElementById('aiAssistant');
+          `;
+          const aiAssistant = document.getElementById('aiAssistant');
           aiAssistant.hidden = false;
           aiPanel.hidden = true;
         }, 2000);
